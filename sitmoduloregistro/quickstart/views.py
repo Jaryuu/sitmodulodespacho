@@ -89,3 +89,62 @@ def logs(request):
         </html>
     ''')
     return HttpResponse(response_text)
+
+
+#-------------------Expediente---------------------
+
+def expediente_create(request):
+    if request.method == 'POST':
+        nu = request.body;
+        exp = Expediente()
+        exp.solicitante = nu['solicitante']
+        exp.tipo_solicitud = nu['tipo_solicitud']
+        exp.asunto = nu['asunto']
+        exp.documentos = nu['documentos']
+        exp.fecha_creacion = nu['fecha_creacion']
+        exp.fecha_modificacion = nu['fecha_modificacion']
+
+        if(exp.save()):
+            return JsonResponse({'Status': 'OK', 'Message' : 'Expediente ' + exp.correlativo })
+        else:
+            return JsonResponse({'Status': 'Failed', 'Message' : 'Failed to create Expediente'})
+    return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
+
+
+def expediente_update(request):
+    return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
+
+def expediente_delete(request):
+    if request.method == 'POST':
+        nu = request.body;
+        correlativo = nu['correlativo']
+        try:
+            exp = Expediente.objects.get(correlativo=correlativo)
+            exp.delete()
+            return JsonResponse({'Status': 'OK', 'Message' : 'Expediente deleted'})
+        except:
+            return JsonResponse({'Status': 'Failed', 'Message' : 'Expediente not exist'})
+    return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
+
+#-------------------Acta---------------------------
+
+def acta_create(request):
+    if request.method == 'POST':
+        nu = request.body;
+        acta = Acta()
+        acta.id_expediente = nu['id_expediente']
+        acta.asunto = nu['asunto']
+        acta.firma = nu['firma']
+
+        if(acta.save()):
+            return JsonResponse({'Status': 'OK', 'Message' : 'Acta ' + acta.id_acta })
+        else:
+            return JsonResponse({'Status': 'Failed', 'Message' : 'Failed to create Acta'})
+    return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
+
+
+def acta_update(request):
+    return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
+
+def acta_delete(request):
+    return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})

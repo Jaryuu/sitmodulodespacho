@@ -118,3 +118,19 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
+
+class Acta(models.Model):
+    id_acta = models.AutoField(primary_key=True)
+    id_expediente = model.IntegerField()
+    fecha = models.DateTimeField(blank=True, null=True)
+    asunto = models.TextField()
+    firma = models.TextField()
+
+class Expediente(models.Model):
+    correlativo = models.AutoField(primary_key=True)
+    solicitante = models.TextField()
+    tipo_solicitud = models.TextField()
+    asunto = models.TextField()
+    documentos = models.TextField()
+    fecha_creacion = models.DateTimeField(blank=True, null=True)
+    fecha_modificacion = models.DateTimeField(blank=True, null=True)

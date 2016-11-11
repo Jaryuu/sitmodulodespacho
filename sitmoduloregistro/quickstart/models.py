@@ -34,7 +34,7 @@ class AuthPermission(models.Model):
 
 
 class AuthUser(models.Model):
-    id = models.IntegerField(primary_key=True)  # AutoField?
+    id = models.AutoField(primary_key=True)  # AutoField?
     password = models.CharField(max_length=128)
     last_login = models.DateTimeField(blank=True, null=True)
     is_superuser = models.BooleanField()

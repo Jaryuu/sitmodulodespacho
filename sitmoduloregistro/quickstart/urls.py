@@ -7,8 +7,8 @@ urlpatterns = [
     url(r'^logs', views.logs, name="logs"),
     # url(r'^', views.user_list, name='user_list'),
     url(r'^new', views.user_create, name='user_new'),
-    url(r'^edit/(?P<pk>\d+)', views.user_update, name='user_edit'),
-    url(r'^delete/(?P<pk>\d+)', views.user_delete, name='user_delete'),
+    url(r'^edit', views.user_update, name='user_edit'),
+    url(r'^delete', views.user_delete, name='user_delete'),
 
     url(r'^expediente/new', views.expediente_create, name='expediente_new'),
     url(r'^expediente/edit', views.expediente_update, name='expediente_edit'),

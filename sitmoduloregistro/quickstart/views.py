@@ -64,8 +64,8 @@ def user_delete(request):
     if request.method == 'POST':
         nu = request.body;
         nu = json.loads(nu)
-        username = nu['email']
-        email = nu['username']
+        username = nu['username']
+        email = nu['email']
         try:
             user = AuthUser.objects.get(username=username, email=email)
             user.delete()

@@ -1,5 +1,5 @@
 from django.test import TestCase
-from quickstart.models import Acta
+from models import Acta
 from datetime import datetime
 
 class ActaTestCase(TestCase):

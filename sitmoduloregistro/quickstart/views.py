@@ -137,6 +137,22 @@ def expediente_create(request):
 @authentication_classes((SessionAuthentication, BasicAuthentication))
 @permission_classes((IsAuthenticated,))
 def expediente_update(request):
+    if request.method == 'POST':
+        nu = request.body;
+        nu = json.loads(nu)
+        correlativo = nu['correlativo']
+        try:
+            exp = Expediente.objects.get(correlativo=correlativo)
+            exp.solicitante = nu['solicitante']
+            exp.tipo_solicitud = nu['tipo_solicitud']
+            exp.asunto = nu['asunto']
+            exp.documentos = nu['documentos']
+            exp.fecha_creacion = nu['fecha_creacion']
+            exp.fecha_modificacion = nu['fecha_modificacion']
+            exp.save()
+            return JsonResponse({'Status': 'OK', 'Message' : 'Expediente updated'})
+        except:
+            return JsonResponse({'Status': 'Failed', 'Message' : 'Expediente not exist'})
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 
 @api_view(['POST'])
@@ -151,6 +167,21 @@ def expediente_delete(request):
             exp = Expediente.objects.get(correlativo=correlativo)
             exp.delete()
             return JsonResponse({'Status': 'OK', 'Message' : 'Expediente deleted'})
+        except:
+            return JsonResponse({'Status': 'Failed', 'Message' : 'Expediente not exist'})
+    return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
+
+@api_view(['POST'])
+@authentication_classes((SessionAuthentication, BasicAuthentication))
+@permission_classes((IsAuthenticated,))
+def expediente_view(request):
+    if request.method == 'POST':
+        nu = request.body;
+        nu = json.loads(nu)
+        correlativo = nu['correlativo']
+        try:
+            exp = Expediente.objects.get(correlativo=correlativo)
+            return JsonResponse({'Status': 'OK', 'Message' : 'Expediente given', 'Expediente' : {'correlativo' : correlativo}})
         except:
             return JsonResponse({'Status': 'Failed', 'Message' : 'Expediente not exist'})
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})

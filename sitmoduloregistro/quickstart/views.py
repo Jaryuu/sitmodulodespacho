@@ -9,7 +9,10 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
 
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from models import *
+from rest_framework.permissions import IsAuthenticated
 
 class UserForm(ModelForm):
     class Meta:

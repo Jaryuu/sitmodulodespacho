@@ -121,7 +121,7 @@ class DjangoSession(models.Model):
 
 class Acta(models.Model):
     id_acta = models.AutoField(primary_key=True)
-    id_expediente = model.IntegerField()
+    id_expediente = models.IntegerField()
     fecha = models.DateTimeField(blank=True, null=True)
     asunto = models.TextField()
     firma = models.TextField()

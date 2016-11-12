@@ -120,10 +120,16 @@ def expediente_create(request):
         exp.documentos = nu['documentos']
         exp.fecha_creacion = nu['fecha_creacion']
         exp.fecha_modificacion = nu['fecha_modificacion']
-
-        if(exp.save()):
-            return JsonResponse({'Status': 'OK', 'Message' : 'Expediente ' + exp.correlativo })
-        else:
+        print exp.solicitante + "\n"
+        print exp.tipo_solicitud + "\n"
+        print exp.asunto + "\n"
+        print exp.documentos + "\n"
+        print exp.fecha_creacion + "\n"
+        print exp.fecha_modificacion + "\n"
+        try:
+            exp.save()
+            return JsonResponse({'Status': 'OK', 'Message' : 'Expediente Creado ' + str(exp.correlativo )})
+        except:
             return JsonResponse({'Status': 'Failed', 'Message' : 'Failed to create Expediente'})
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 
@@ -162,9 +168,10 @@ def acta_create(request):
         acta.asunto = nu['asunto']
         acta.firma = nu['firma']
 
-        if(acta.save()):
-            return JsonResponse({'Status': 'OK', 'Message' : 'Acta ' + acta.id_acta })
-        else:
+        try:
+            acta.save()
+            return JsonResponse({'Status': 'OK', 'Message' : 'Acta ' + str(acta.id_acta) })
+        except:
             return JsonResponse({'Status': 'Failed', 'Message' : 'Failed to create Acta'})
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 

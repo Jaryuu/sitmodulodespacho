@@ -13,8 +13,7 @@ class ActaTestCase(TestCase):
 			"fecha_creacion": "2016-11-11",
 			"fecha_modificacion": "2016-11-11"
 		}
-		self.client.login(username='admin', password='admin123')
-        self.documento_creado = self.client.post('/users/expediente_new/',datos_acta,content_type='application/json',auth=('admin','admin123'))
+		self.documento_creado = self.client.post('/users/expediente_new',datos_acta,content_type='application/json',auth=('admin','admin123'))
 
 
     def test_crear_acta(self):

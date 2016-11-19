@@ -6,12 +6,13 @@ from datetime import datetime
 class ActaTestCase(TestCase):
     def setUp(self):
         datos_acta = {
-                'id_acta':1,
-                'id_expediente':1,
-                'fecha':datetime.now(),
-                'asunto':'asunto',
-                'firma':'firma'
-        }
+			"solicitante": "Makoto Hidaka",
+			"tipo_solicitud": "2",
+			"asunto": "cambio",
+			"documentos": "serie de documentos",
+			"fecha_creacion": "2016-11-11",
+			"fecha_modificacion": "2016-11-11"
+		}
 		
         self.documento_creado = self.client.post('/users/expediente_new/',datos_acta,format='json',auth=('admin','admin123'))
 

@@ -13,7 +13,7 @@ class ActaTestCase(TestCase):
                 'firma':'firma'
         }
 		
-        self.documento_creado = self.client.post('/users/expediente_new/',datos_acta,format='json',auth=('situser','toor1234'))
+        self.documento_creado = self.client.post('/users/expediente_new/',datos_acta,format='json',auth=('admin','admin123'))
 
 
     def test_crear_acta(self):

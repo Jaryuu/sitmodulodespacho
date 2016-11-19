@@ -1,18 +1,19 @@
 from django.test import TestCase
 from models import Acta
+from rest_framework import status
 from datetime import datetime
 
 class ActaTestCase(TestCase):
     def setUp(self):
         datos_acta = {
-        	'id_acta':1,
-        	'id_expediente':1,
-        	'fecha':datetime.now(),
-        	'asunto':'asunto',
-        	'firma':'firma'
+                'id_acta':1,
+                'id_expediente':1,
+                'fecha':datetime.now(),
+                'asunto':'asunto',
+                'firma':'firma'
         }
         self.documento_creado = self.client.post('/expediente_create/',datos_acta,format='json')
-        
+
 
     def test_crear_acta(self):
-        self.assertEqual(self.documento_creado.Status, 'OK')
+        self.assertEqual(self.documento_creado.status_code, status.HTTP_201_CREATED)

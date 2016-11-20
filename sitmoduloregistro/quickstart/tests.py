@@ -15,7 +15,7 @@ class ActaTestCase(TestCase):
 		}
 		persona = AuthUser(username='admin',password='admin123')
 		persona.save()
-        self.documento_creado = self.client.post('/users/expediente_new',datos_acta,content_type='application/json',auth=('admin','admin123'))
+		self.documento_creado = self.client.post('/users/expediente_new',datos_acta,content_type='application/json',auth=('admin','admin123'))
 
 
     def test_crear_acta(self):

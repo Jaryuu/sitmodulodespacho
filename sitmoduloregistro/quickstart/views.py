@@ -136,12 +136,6 @@ def expediente_create(request):
         exp.documentos = nu['documentos']
         exp.fecha_creacion = nu['fecha_creacion']
         exp.fecha_modificacion = nu['fecha_modificacion']
-        print exp.solicitante + "\n"
-        print exp.tipo_solicitud + "\n"
-        print exp.asunto + "\n"
-        print exp.documentos + "\n"
-        print exp.fecha_creacion + "\n"
-        print exp.fecha_modificacion + "\n"
         try:
             exp.save()
             return JsonResponse({'Status': 'OK', 'Message' : 'Expediente Creado ' + str(exp.correlativo )})

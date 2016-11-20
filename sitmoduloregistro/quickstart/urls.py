@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^new', views.user_create, name='user_new'),
     url(r'^edit', views.user_update, name='user_edit'),
     url(r'^delete', views.user_delete, name='user_delete'),
+    url(r'^view', views.user_view, name='user_view'),
 
     url(r'^expediente_new', views.expediente_create, name='expediente_new'),
     url(r'^expediente_edit', views.expediente_update, name='expediente_edit'),

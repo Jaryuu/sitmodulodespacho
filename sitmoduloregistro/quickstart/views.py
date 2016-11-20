@@ -45,13 +45,23 @@ def user_create(request):
 
 @api_view(['POST'])
 def user_update(request):
-    """server = get_object_or_404(User, pk=pk)
-    form = UserForm(request.POST or None, instance=server)
-    if form.is_valid():
-        form.save()
-        return redirect('user_list')
-    return JsonResponse({'foo':''})"""
+    if request.method == 'POST':
+        nu = request.body;
+        nu = json.loads(nu)
+        username = nu['old_username']
+        email = nu['old_email']
+        try:
+            user = AuthUser.objects.get(username=username, email=email)
+            user.first_name = nu['first_name']
+            user.last_name = nu['last_name']
+            user.email = nu['new_email']
+            user.username = nu['new_username']
+            user.save()
+            return JsonResponse({'Status': 'OK', 'Message' : 'User edited'})
+        except:
+            return JsonResponse({'Status': 'Failed', 'Message' : 'User not exist'})
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
+
 
 @api_view(['POST'])
 def user_delete(request):
@@ -64,6 +74,20 @@ def user_delete(request):
             user = AuthUser.objects.get(username=username, email=email)
             user.delete()
             return JsonResponse({'Status': 'OK', 'Message' : 'User deleted'})
+        except:
+            return JsonResponse({'Status': 'Failed', 'Message' : 'User not exist'})
+    return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
+
+@api_view(['POST'])
+def user_view(request):
+    if request.method == 'POST':
+        nu = request.body;
+        nu = json.loads(nu)
+        username = nu['username']
+        email = nu['email']
+        try:
+            user = AuthUser.objects.get(username=username, email=email)
+            return JsonResponse({'Status': 'OK', 'Message' : 'User given', 'User' : {'first_name': user.first_name, 'last_name': user.last_name, 'email': email, 'username': username}})
         except:
             return JsonResponse({'Status': 'Failed', 'Message' : 'User not exist'})
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})

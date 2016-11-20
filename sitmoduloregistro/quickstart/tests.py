@@ -27,6 +27,7 @@ class ActaTestCase(APITestCase):
 			"id_asunto": "Asunto de prueba",
 			"id_firma": "Firma de prueba"
         }
+		
 	persona = AuthUser(username='admin',password='admin123',is_superuser=1,is_staff=1,is_active=1)
 	persona.save()
 		

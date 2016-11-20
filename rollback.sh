@@ -1,0 +1,1 @@
+if python manage.py test 2>&1 | grep 'FAILED'; then git reset HEAD@{1} && git reset --hard; else echo "Todas las pruebas fueron exitosas"; fi

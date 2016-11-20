@@ -23,8 +23,6 @@ def user_list(request, template_name='users/user_list.html'):
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 
 @api_view(['POST'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def user_create(request):
     if request.method == 'POST':
         nu = request.body;
@@ -46,8 +44,6 @@ def user_create(request):
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 
 @api_view(['POST'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def user_update(request):
     """server = get_object_or_404(User, pk=pk)
     form = UserForm(request.POST or None, instance=server)
@@ -58,8 +54,6 @@ def user_update(request):
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 
 @api_view(['POST'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def user_delete(request):
     if request.method == 'POST':
         nu = request.body;
@@ -107,8 +101,6 @@ def logs(request):
 
 #-------------------Expediente---------------------
 @api_view(['POST'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def expediente_create(request):
     if request.method == 'POST':
         nu = request.body;
@@ -134,8 +126,6 @@ def expediente_create(request):
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 
 @api_view(['POST'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def expediente_update(request):
     if request.method == 'POST':
         nu = request.body;
@@ -156,8 +146,6 @@ def expediente_update(request):
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 
 @api_view(['POST'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def expediente_delete(request):
     if request.method == 'POST':
         nu = request.body;
@@ -172,8 +160,6 @@ def expediente_delete(request):
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 
 @api_view(['POST'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def expediente_view(request):
     if request.method == 'POST':
         nu = request.body;
@@ -188,8 +174,6 @@ def expediente_view(request):
 
 #-------------------Acta---------------------------
 @api_view(['POST'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def acta_create(request):
     if request.method == 'POST':
         nu = request.body;
@@ -208,8 +192,6 @@ def acta_create(request):
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 
 @api_view(['POST'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def acta_update(request):
     if request.method == 'POST':
         nu = request.body;
@@ -228,8 +210,6 @@ def acta_update(request):
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 
 @api_view(['POST'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def acta_delete(request):
     if request.method == 'POST':
         nu = request.body;
@@ -244,8 +224,6 @@ def acta_delete(request):
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 
 @api_view(['POST'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def acta_view(request):
     if request.method == 'POST':
         nu = request.body;

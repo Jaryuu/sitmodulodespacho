@@ -32,12 +32,27 @@ class ActaTestCase(APITestCase):
 	self.usuario_creado = self.client.post('/users/new',usuario,format='json')
 
 	self.registro_creado = self.client.post('/users/acta_new',datos_acta,format='json')
+	
+	self.expediente_vista = self.client.post('/users/expediente_view',{"correlativo":1},format='json')
+	
+	self.usuario_vista = self.client.post('/users/view',{"username":"testuser", "user":"user@test.com"},format='json')
+	
+	self.acta_vista = self.client.post('/users/acta_view',{"id_acta":1},format='json')
 
     def test_crear_expediente(self):
         self.assertEqual(self.expediente_creado.status_code, status.HTTP_200_OK)
 
     def test_crear_usuario(self):
-	self.assertEqual(self.usuario_creado.status_code, status.HTTP_201_CREATED)
+	self.assertEqual(self.usuario_creado.status_code, status.HTTP_200_OK)
 
     def test_crear_registro_acta(self):
 	self.assertEqual(self.registro_creado.status_code, status.HTTP_200_OK)
+	
+	def test_view_expediente(self):
+	self.assertEqual(self.expediente_vista.status_code, status.HTTP_200_OK)
+	
+	def test_view_usuario(self):
+	self.assertEqual(self.usuario_vista.status_code, status.HTTP_200_OK)
+	
+	def test_view_registro_acta(self):
+	self.assertEqual(self.acta_vista.status_code, status.HTTP_200_OK)

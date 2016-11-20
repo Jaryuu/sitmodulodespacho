@@ -40,7 +40,7 @@ class ActaTestCase(APITestCase):
 	self.acta_vista = self.client.post('/users/acta_view',{"id_acta":1},format='json')
 
     def test_crear_expediente(self):
-        self.assertEqual(self.expediente_creado.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(self.expediente_creado.status_code, status.HTTP_200_OK)
 
     def test_crear_usuario(self):
 	self.assertEqual(self.usuario_creado.status_code, status.HTTP_200_OK)

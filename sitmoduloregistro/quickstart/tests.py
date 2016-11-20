@@ -23,4 +23,4 @@ class ActaTestCase(APITestCase):
 
     def test_crear_acta(self):
 	
-        self.assertEqual(self.documento_creado.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(self.documento_creado.status_code, status.HTTP_200_OK)

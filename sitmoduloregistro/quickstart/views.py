@@ -181,7 +181,7 @@ def expediente_view(request):
         correlativo = nu['correlativo']
         try:
             exp = Expediente.objects.get(correlativo=correlativo)
-            return JsonResponse({'Status': 'OK', 'Message' : 'Expediente given', 'Expediente' : {'correlativo' : correlativo}})
+            return JsonResponse({'Status': 'OK', 'Message' : 'Expediente given', 'Expediente' : {'correlativo' : correlativo, 'solicitante': exp.correlativo, 'solicitante':exp.solicitante, 'tipo_solicitud': exp.tipo_solicitud, 'asunto': exp.asunto, 'documentos': exp.documentos, 'fecha_creacion': exp.fecha_creacion, 'fecha_modificacion': exp.fecha_modificacion}})
         except:
             return JsonResponse({'Status': 'Failed', 'Message' : 'Expediente not exist'})
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
@@ -196,6 +196,7 @@ def acta_create(request):
         nu = json.loads(nu)
         acta = Acta()
         acta.id_expediente = nu['id_expediente']
+        acta.fecha = nu['fecha']
         acta.asunto = nu['asunto']
         acta.firma = nu['firma']
 
@@ -210,10 +211,49 @@ def acta_create(request):
 @authentication_classes((SessionAuthentication, BasicAuthentication))
 @permission_classes((IsAuthenticated,))
 def acta_update(request):
+    if request.method == 'POST':
+        nu = request.body;
+        nu = json.loads(nu)
+        id_acta = nu['id_acta']
+        try:
+            acta = Acta.objects.get(id_acta=id_acta)
+            acta.solicitante = nu['id_expediente']
+            acta.fecha = nu['fecha']
+            acta.tipo_solicitud = nu['asunto']
+            acta.asunto = nu['firma']
+            acta.save()
+            return JsonResponse({'Status': 'OK', 'Message' : 'Acta updated'})
+        except:
+            return JsonResponse({'Status': 'Failed', 'Message' : 'Acta not exist'})
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
 
 @api_view(['POST'])
 @authentication_classes((SessionAuthentication, BasicAuthentication))
 @permission_classes((IsAuthenticated,))
 def acta_delete(request):
+    if request.method == 'POST':
+        nu = request.body;
+        nu = json.loads(nu)
+        id_acta = nu['id_acta']
+        try:
+            acta = Acta.objects.get(id_acta=id_acta)
+            acta.delete()
+            return JsonResponse({'Status': 'OK', 'Message' : 'Acta deleted'})
+        except:
+            return JsonResponse({'Status': 'Failed', 'Message' : 'Acta not exist'})
+    return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
+
+@api_view(['POST'])
+@authentication_classes((SessionAuthentication, BasicAuthentication))
+@permission_classes((IsAuthenticated,))
+def acta_view(request):
+    if request.method == 'POST':
+        nu = request.body;
+        nu = json.loads(nu)
+        id_acta = nu['id_acta']
+        try:
+            acta = Acta.objects.get(id_acta=id_acta)
+            return JsonResponse({'Status': 'OK', 'Message' : 'Acta given', 'Acta' : {'id_acta': id_acta, 'id_expediente': acta.id_expediente, 'fecha':acta.fecha, 'asunto': acta.asunto, 'firma': acta.firma}})
+        except:
+            return JsonResponse({'Status': 'Failed', 'Message' : 'Acta not exist'})
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})

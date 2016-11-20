@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^acta_new', views.acta_create, name='acta_new'),
     url(r'^acta_edit', views.acta_update, name='acta_edit'),
     url(r'^acta_delete', views.acta_delete, name='acta_delete'),
+    url(r'^acta_view', views.acta_view, name='acta_view'),
 ]

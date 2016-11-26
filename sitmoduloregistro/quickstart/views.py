@@ -14,6 +14,8 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from models import *
 from rest_framework.permissions import IsAuthenticated
 
+import ast
+
 class UserForm(ModelForm):
     class Meta:
         model = AuthUser
@@ -185,10 +187,29 @@ def expediente_view(request):
         correlativo = nu['correlativo']
         try:
             exp = Expediente.objects.get(correlativo=correlativo)
-            return JsonResponse({'Status': 'OK', 'Message' : 'Expediente given', 'Expediente' : {'correlativo' : correlativo, 'solicitante': exp.correlativo, 'solicitante':exp.solicitante, 'tipo_solicitud': exp.tipo_solicitud, 'asunto': exp.asunto, 'documentos': exp.documentos, 'fecha_creacion': exp.fecha_creacion, 'fecha_modificacion': exp.fecha_modificacion}})
+            return JsonResponse({'Status': 'OK', 'Message' : 'Expediente given', 'Expediente' : {'correlativo' : correlativo, 'solicitante':exp.solicitante, 'tipo_solicitud': exp.tipo_solicitud, 'asunto': exp.asunto, 'documentos': exp.documentos, 'fecha_creacion': exp.fecha_creacion, 'fecha_modificacion': exp.fecha_modificacion}})
         except:
             return JsonResponse({'Status': 'Failed', 'Message' : 'Expediente not exist'})
     return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
+
+@api_view(['POST'])
+def expediente_complete(request):
+    if request.method == 'POST':
+        jsonString = '{"Status":"OK", "Message":"Expedientes given", "Expedientes":{'
+        exps = Expediente.objects.all()[:5]
+        total = exps.count()
+        count = 1
+        for exp in exps:
+            jsonString += '"Expediente'+str(count)+'": {"correlativo":"'+str(exp.correlativo)+'", "solicitante":"'+exp.solicitante+'", "tipo_solicitud":"'+str(exp.tipo_solicitud)+'", "asunto":"'+exp.asunto+'", "documentos":"'+exp.documentos+'", "fecha_creacion":"'+str(exp.fecha_creacion)+'", "fecha_modificacion":"'+str(exp.fecha_modificacion)+'"}'
+            if(count!=total):
+                count = count+1
+                jsonString += ','
+
+        jsonString += '}}'
+        return JsonResponse(ast.literal_eval(jsonString))
+    return JsonResponse({'Status': 'Failed', 'Message' : 'Access Denied'})
+
+
 
 #-------------------Acta---------------------------
 @api_view(['POST'])

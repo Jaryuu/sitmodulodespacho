@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^expediente_edit', views.expediente_update, name='expediente_edit'),
     url(r'^expediente_delete', views.expediente_delete, name='expediente_delete'),
     url(r'^expediente_view', views.expediente_view, name='expediente_view'),
+    url(r'^expediente_complete', views.expediente_complete, name='expediente_complete'),
 
     url(r'^acta_new', views.acta_create, name='acta_new'),
     url(r'^acta_edit', views.acta_update, name='acta_edit'),

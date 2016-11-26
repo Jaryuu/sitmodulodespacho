@@ -196,7 +196,7 @@ def expediente_view(request):
 def expediente_complete(request):
     if request.method == 'POST':
         jsonString = '{"Status":"OK", "Message":"Expedientes given", "Expedientes":{'
-        exps = Expediente.objects.all()[:5]
+        exps = Expediente.objects.all()
         total = exps.count()
         count = 1
         for exp in exps:
